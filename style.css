@@ -1,0 +1,244 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: helvetica, sans-serif;
+}
+
+:root {
+  --background-color: #2A2463;
+  --secondary-color: #4E2C98;
+  --heading-color: rgba(255, 255, 255, .9);
+  --desaturated-color: rgba(255, 255, 255, 0.6);
+}
+
+body {
+  background: var(--background-color);
+  color: var(--heading-color);
+  padding: 2.5em;
+}
+
+/* hero section starts here */
+.hero {
+  height: 100vh;
+  display: flex;
+  justify-content: space-evenly;
+  position: relative;
+}
+
+.hero img {
+  max-height: 90%;
+}
+
+.hero .heroHeading {
+  font-size: 3.5em;
+}
+
+.hero .content {
+  margin-top: 10em;
+  max-width: 70ch;
+  align-self: flex-start;
+
+}
+
+.hero .heroDesc {
+  font-size: 22px;
+  line-height: 150%;
+  color: var(--desaturated-color);
+  margin: 1.3em 0;
+
+}
+
+
+.hero .heroBtn {
+  align-self: start;
+  padding: 10px 40px;
+}
+
+.button {
+  background: var(--secondary-color);
+  color: var(--heading-color);
+  border-radius: 5px;
+  border: none;
+}
+
+.hero .arrowDown {
+  position: absolute;
+  top: 60%;
+  right: 50%;
+  transform: translate(-50%, 50%);
+  font-size: 3em;
+  animation: jump 1s infinite alternate;
+  margin-top: 3em;
+}
+
+@keyframes jump {
+  to {
+    transform: translateY(30px);
+
+  }
+
+  from {
+    transform: translateY(0px);
+
+  }
+}
+
+/* hero section ends here */
+
+
+/** filter section ends here */
+.filterSection {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.filterCommon {
+  display: flex;
+  justify-content: space-around;
+  background: var(--secondary-color);
+  align-items: center;
+  width: 25%;
+  padding: 1em
+}
+
+.filterCommon button {
+  font-size: 1em;
+  background: transparent;
+  color: var(--desaturated-color);
+  border: 0;
+}
+
+.filterCommon button:hover {
+  color: var(--heading-color);
+}
+
+#sortSelect,
+#selectFilterBar {
+  width: 50%;
+}
+
+/** filter section starts here */
+
+
+
+/*card section starts ends here */
+
+.cardWrapper {
+  background-color: var(--secondary-color);
+  margin-top: 7em;
+  width: 500px;
+  height: 250px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 10px 10px 15px rgb(0, 0, 0, 0.3);
+}
+
+.Cardcontent {
+  /* transform: translateX(-3em); */
+}
+
+[data-field="name"] {
+  font-size: 1.8em;
+  font-weight: lighter;
+
+}
+
+[data-field="house"] {
+  margin: .5em 0 1.7em 0;
+  color: var(--desaturated-color);
+}
+
+.cardWrapper img {
+  border-radius: 50%;
+  height: 70%;
+  /* filter: drop-shadow(10px 10px 10px rgb(0, 0, 0, 0.2)); */
+  border: 15px solid var(--background-color);
+}
+
+.cardBtn {
+  background-color: var(--background-color);
+  padding: 8px 20px;
+}
+
+#main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  margin: 0 auto;
+}
+
+/* card section ends here */
+
+/** modal section starts here */
+
+#modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 1;
+
+}
+
+.modal-content {
+  width: 70%;
+  height: 75%;
+  margin: 5em auto;
+  background: var(--background-color);
+  color: var(--heading-color);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 20px;
+  box-shadow: 10px 10px 20px rgb(0, 0, 0, 0.5);
+}
+
+.close-btn {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  font-size: 1.5em;
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: rgba(0, 0, 0, 0.9)
+}
+
+/* modal section ends here *************/
+
+/** themes start here *************/
+
+[data-theme='Gryffindor'] {
+  --heading-color: gray;
+  --background-color: yellow;
+}
+
+[data-theme='Hufflepuff'] {
+  --heading-color: yellow;
+  --background-color: blue;
+}
+
+[data-theme='Ravenclaw'] {
+  --heading-color: #fff;
+  --background-color: rgb(194, 23, 66);
+}
+
+[data-theme='Slytherin'] {
+  --heading-color: purple;
+  --background-color: green;
+}
+
+/** themes end here *************/

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Hacked Hogwarts</title>
+</head>
+
+<body>
+  <!-- hero section -->
+  <section class='hero'>
+    <div class="content">
+
+      <h1 class='heroHeading'>Hogrwarts student list</h1>
+      <p class='heroDesc'>Welcome to the Hogwarts class of 1991 student list where you can find different information
+        about the students that were attending Hogwarts in 1991.</p>
+      <button class='heroBtn button'>View List</button>
+
+    </div>
+
+    <div class="arrowDown">⌄</div>
+    <img src="./harryp/crests.png" alt="hogwarts">
+
+  </section>
+
+  <section class="filterSection">
+
+    <div class="filter filterCommon">
+      <h3 class="filterHeading">Filter by:</h3>
+
+      <!-- <button class="filter button" data-action="filter" data-filter="expelled">Expelled</button>
+      <button class="filter button" data-action="filter" data-filter="not-expelled">Not-expelled</button>
+      <button class="filter button" data-action="filter" data-filter="Gryffindor">Griffindor</button>
+      <button class="filter button" data-action="filter" data-filter="Slytherin">Slytherin</button>
+      <button class="filter button" data-action="filter" data-filter="Ravenclaw">Ravenclaw</button>
+      <button class="filter button" data-action="filter" data-filter="Hufflepuff">Hufflepuff</button>
+
+      <button class="filter button" data-action="filter" data-filter="*">All</button> -->
+      <!-- TODO: have to add expelled and not expelled -->
+      <select name="theme" id="selectFilterBar">
+        <option class="button" value="*"> All
+        </option>
+        <option class="selection" value="Gryffindor">Gryffyndor
+        </option>
+        <option class="selection" value="Slytherin">Slytherin
+        </option>
+        <option class="selection" value="Hufflepuff">Hufflepuff
+        </option>
+        <option class="selection" value="Ravenclaw">Ravenclaw
+        </option>
+
+      </select>
+    </div>
+
+    <div class='sort filterCommon'>
+      <h3 class="sortHeading">Sort by:</h3>
+
+      <select name="theme" id="sortSelect">
+        <option> -
+        </option>
+        <option value="firstName">First Name
+        </option>
+        <option value="lastName">Last Name
+        </option>
+        <option value="house">House
+        </option>
+        <!-- <option value="Slytherin">Slytherin
+        </option>
+        <option value="Ravenclaw">Ravenclaw
+        </option>
+        <option value="Hufflepuff">Hufflepuff
+        </option> -->
+      </select>
+  </section>
+
+
+  <!-- <div class="templateWrapper">
+
+    <div class="cardWrapper">
+      <img src="./harryp/potter_h.png">
+
+      <div class="Cardcontent">
+        <h2 data-name="name">Harry Potter</h2>
+        <h4 data-house='Griffindor'>Griffindor</h4>
+        <button class="cardBtn button">Read more</button>
+      </div>
+    </div>
+
+    <div class="cardWrapper">
+      <img src="./harryp/malfoy_d.png">
+
+      <div class="Cardcontent">
+        <h2 data-name="name">Draco Malfoy</h2>
+        <h4 data-house='Griffindor'>Slytherin</h4>
+        <button class="cardBtn button">Read more</button>
+      </div>
+    </div>
+
+    <div class="cardWrapper">
+      <img src="./harryp/weasley_r.png">
+
+      <div class="Cardcontent">
+        <h2 data-name="name">Ron Weasley</h2>
+        <h4 data-house='Griffindor'>Griffindor</h4>
+        <button class="cardBtn button">Read more</button>
+      </div>
+    </div>
+
+  </div> -->
+
+
+  <!-- modal part -->
+  <section id="modal">
+    <div class="modal-content" data-theme=''>
+      <div class='close-btn'>X</div>
+      <h1 class='student-name'></h1>
+      <h3 class='student-house'></h3>
+    </div>
+  </section>
+
+
+  <main id='main'></main>
+
+  <template id='template'>
+    <div class="cardWrapper">
+      <img data-field='img' src="./harryp/potter_h.png">
+
+      <div class="Cardcontent">
+        <h2 data-field="name"></h2>
+        <h4 data-field="house"></h4>
+        <button data-field="button" class="cardBtn button btn">Read more</button>
+      </div>
+    </div>
+
+  </template>
+  <script src="test.js"></script>
+</body>
+
+</html>
