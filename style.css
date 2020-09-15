@@ -152,7 +152,7 @@ body {
   color: var(--desaturated-color);
 }
 
-.cardWrapper img {
+.cardWrapper [data-field='img'] {
   border-radius: 50%;
   height: 70%;
   /* filter: drop-shadow(10px 10px 10px rgb(0, 0, 0, 0.2)); */
@@ -173,7 +173,32 @@ body {
 
 /* card section ends here */
 
+/* if (student.house === 'Slytherin') {
+  houseCrest.setAttribute('style', ' background: url(./harryp/crests.png); background-size: contain; ');
+} */
+
+
 /** modal section starts here */
+.house-crest {
+  height: 100px;
+  width: 100px;
+ position: absolute;
+ top:5%;
+ left: 5%;
+
+}
+
+.modal-content [data-field='img'] {
+  border-radius: 50%;
+  height: 30%;
+  border: 10px solid black;
+  object-fit: cover;
+
+}
+
+.modalRightSide {
+  margin: 3em;
+}
 
 #modal {
   position: fixed;
@@ -197,11 +222,19 @@ body {
   color: var(--heading-color);
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  flex-direction: column;
   border-radius: 20px;
   box-shadow: 10px 10px 20px rgb(0, 0, 0, 0.5);
+}
+
+#modal .student-name{
+  font-size: 2em;
+  font-weight: lighter;
+}
+#modal .student-house, #modal .student-gender{
+  font-size: 1.5em;
+  font-weight: lighter;
 }
 
 .close-btn {
@@ -209,7 +242,7 @@ body {
   top: 5%;
   right: 5%;
   font-size: 1.5em;
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.8);
   cursor: pointer;
 }
 
@@ -222,23 +255,23 @@ body {
 /** themes start here *************/
 
 [data-theme='Gryffindor'] {
-  --heading-color: gray;
-  --background-color: yellow;
+  --heading-color:#db9358;
+  --background-color:  #9e1818;
 }
 
 [data-theme='Hufflepuff'] {
-  --heading-color: yellow;
-  --background-color: blue;
+  --heading-color: #FDFDFD;
+  --background-color: #D6AB11;
 }
 
 [data-theme='Ravenclaw'] {
-  --heading-color: #fff;
+  --heading-color: #05A5CC;
   --background-color: rgb(194, 23, 66);
 }
 
 [data-theme='Slytherin'] {
-  --heading-color: purple;
-  --background-color: green;
+  --heading-color: #A6A6A6;
+  --background-color: #1D811D;
 }
 
 /** themes end here *************/
