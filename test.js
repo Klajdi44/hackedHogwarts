@@ -221,24 +221,24 @@ function modalOpen(modal, student) {
   const studentHouse = document.querySelector('.student-house').textContent = student.house;
   //set the gender
   const studentGender = document.querySelector('.student-gender').textContent = student.gender;
-  
-  
+
+
   //get the div where the house crests will be set
   const houseCrest = document.querySelector('.house-crest');
-   //set diffrent background for each of the houses.
+  //set diffrent background for each of the houses.
   switch (true) {
     case student.house === 'Gryffindor':
       houseCrest.setAttribute('style', 'background: url(./harryp/Gryffindor.png); background-size:contain; background-repeat: no-repeat');
       break;
     case student.house === 'Slytherin':
-      houseCrest.setAttribute('style', 'background: url(./harryp/slytherin.png); background-size:contain; background-repeat: no-repeat');
+      houseCrest.setAttribute('style', 'background: url(./harryp/Slytherin.png); background-size:contain; background-repeat: no-repeat');
       break;
     case student.house === 'Hufflepuff':
-      houseCrest.setAttribute('style', 'background: url(./harryp/hufflepuff.png); background-size:contain; background-repeat: no-repeat');
+      houseCrest.setAttribute('style', 'background: url(./harryp/Hufflepuff.png); background-size:contain; background-repeat: no-repeat');
       break;
     case student.house === 'Ravenclaw':
-      houseCrest.setAttribute('style', 'background: url(./harryp/ravenclaw.png); background-size:contain; background-repeat: no-repeat');
-      break; 
+      houseCrest.setAttribute('style', 'background: url(./harryp/Ravenclaw.png); background-size:contain; background-repeat: no-repeat');
+      break;
   }
 
 
