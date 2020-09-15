@@ -182,9 +182,9 @@ body {
 .house-crest {
   height: 100px;
   width: 100px;
- position: absolute;
- top:5%;
- left: 5%;
+  position: absolute;
+  top: 5%;
+  left: 5%;
 
 }
 
@@ -228,11 +228,13 @@ body {
   box-shadow: 10px 10px 20px rgb(0, 0, 0, 0.5);
 }
 
-#modal .student-name{
+#modal .student-name {
   font-size: 2em;
   font-weight: lighter;
 }
-#modal .student-house, #modal .student-gender{
+
+#modal .student-house,
+#modal .student-gender {
   font-size: 1.5em;
   font-weight: lighter;
 }
@@ -255,23 +257,23 @@ body {
 /** themes start here *************/
 
 [data-theme='Gryffindor'] {
-  --heading-color:#db9358;
-  --background-color:  #9e1818;
+  --heading-color: #db9358;
+  --background-color: #9e1818;
 }
 
 [data-theme='Hufflepuff'] {
-  --heading-color: #FDFDFD;
-  --background-color: #D6AB11;
+  --heading-color: #fdfdfd;
+  --background-color: #d6ab11;
 }
 
 [data-theme='Ravenclaw'] {
-  --heading-color: #05A5CC;
-  --background-color: rgb(194, 23, 66);
+  --heading-color: #05a4cb;
+  --background-color: #c21742
 }
 
 [data-theme='Slytherin'] {
-  --heading-color: #A6A6A6;
-  --background-color: #1D811D;
+  --heading-color: #a6a6a6;
+  --background-color: #1d811d;
 }
 
 /** themes end here *************/
