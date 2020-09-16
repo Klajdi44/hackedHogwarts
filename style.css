@@ -106,7 +106,9 @@ body {
   display: flex;
   justify-content: space-between;
 }
-
+select,button{
+  cursor: pointer;
+}
 .filterCommon {
   display: flex;
   justify-content: space-around;
@@ -121,6 +123,13 @@ body {
   background: transparent;
   color: var(--desaturated-color);
   border: 0;
+}
+.filterCommon .sortBtn{
+  background: var(--background-color);
+  padding: 10px 25px;
+}
+.filterCommon .sortBtn:active{
+  transform: scale(.8);
 }
 
 .filterCommon button:hover {
