@@ -316,3 +316,30 @@ button {
 }
 
 /** themes end here *************/
+
+
+@keyframes falling {
+  0% {
+    opacity: .9;
+    transform:  translateY(1em) scale(.9);
+  }
+
+  30% {
+    opacity: .7;
+    transform: translateY(2em) scale(.850);
+  }
+
+  60% {
+    opacity: .4;
+    transform:  translateY(3em) scale(.8);
+  }
+
+  100% {
+    opacity: 0;
+    transform:  translateY(4em) scale(.750);
+  }
+}
+
+.fallDown {
+  animation: falling .6s ease-in;
+}

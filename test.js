@@ -1,14 +1,17 @@
 ////TODO: 1)sorting must sort from other way around.
 //// 2)make filtering and sorting work together
-// 3) make an expell button,
+//// 3) make an expell button,
 //// 4) make a place where to display the number of students that are currently displayed. 
 // 5 make the images appear.
 
 "use strict";
 
 window.addEventListener("DOMContentLoaded", deligator);
+//init empty array
 let allStudents = [];
+// init another empty array
 let filteredStudents = [];
+//init the array.length tracker
 let numberOfStudents = document.querySelector('.studentNumber');
 
 // The prototype for all students: 
@@ -22,14 +25,22 @@ const Student = {
   image: '',
   expelled: false,
   toggleExpell() {
-    // let expelledStudents = [];
-
+    //if student expeled = false make it to true,
     if (this.expelled === false) {
       this.expelled = true;
-    } else {
-      this.expelled = false;
+      //shows only the students that are not expeled
+      filteredStudents = filteredStudents.filter(student => student.expelled === false);
     }
-    displayList(filteredStudents);
+    else {
+      this.expelled = false;
+      //shows only the students that are expeled
+      filteredStudents = filteredStudents.filter(student => student.expelled === true);
+    }
+    numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
+    //display updated array
+    setTimeout(() => {
+      displayList(filteredStudents);
+    }, 500);
   }
 }
 
@@ -60,8 +71,10 @@ function deligator() {
 // }
 
 function getFilterBarValue() {
+  //gets the value from the select bar
   const selectedValue = this.value;
   console.log(selectedValue);
+  //pass value to getStudent
   getStudent(selectedValue);
 
 }
@@ -86,15 +99,17 @@ function getSortedValues() {
 
 function getStudent(selectedValue) {
   if (selectedValue === '*') {
-    filteredStudents = allStudents;
+    // show only students that are not expeled
+    filteredStudents = allStudents.filter(students => students.expelled === false);
   }
   else if (selectedValue === 'Expelled') {
+    // show only students that are expeled
     filteredStudents = allStudents.filter(students => students.expelled === true);
     numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
-
   }
   else {
-    filteredStudents = allStudents.filter(student => student.house === selectedValue);
+    // show only students based on their house and the ones who are not expelled
+    filteredStudents = allStudents.filter(student => student.house === selectedValue && student.expelled === false);
   }
   numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
   displayList(filteredStudents);
@@ -103,6 +118,7 @@ function getStudent(selectedValue) {
 function getSortedStudent(pressedValue, sortDirection) {
   let sortedStudents = [];
   let direction = 1;
+  //change direction descending/ascending
   if (sortDirection === 'desc') {
     direction = 1;
   } else {
@@ -110,6 +126,8 @@ function getSortedStudent(pressedValue, sortDirection) {
   }
 
   sortedStudents = filteredStudents.sort((a, b) => {
+    // console.log(a[pressedValue],b[pressedValue]);
+    //compairs all the names and sorts after
     if (a[pressedValue] < b[pressedValue]) {
       return -1 * direction;
     } else {
@@ -130,6 +148,7 @@ async function loadJSON(url) {
 function prepareObjects(jsonData) {
   allStudents = jsonData.map(preapareObject);
   filteredStudents = allStudents;
+
   // TODO: This might not be the function we want to call first
 
   displayList(allStudents);
@@ -145,6 +164,7 @@ function preapareObject(studentObject) {
   //if previous index is equal to '' or - make next index uppercase
   letterArray.forEach((letter, index) => {
     // console.log(letter);
+    // index -1 is the previous index before the letter
     if (letterArray[index - 1] === ' ' || letterArray[index - 1] === '-') {
       letterArray[index] = letter.toUpperCase();
     } else if (letterArray[index] === '-') {
@@ -243,11 +263,14 @@ function displayStudent(student) {
   }
 
   const card = clone.querySelector('[data-field-card=card]');
+  const expeledInfo = clone.querySelector('[data-field=expelledField]');
+  const fire =  new Audio('./harryp/fire.mp3');
+
 
   if (student.expelled === true) {
-    clone.querySelector('[data-field=expelledField]').textContent = 'Expelled';
+    expeledInfo.textContent = 'Expeled';
     card.style.background = 'red';
-    clone.querySelector('[data-field=expell]').textContent = 'Un-expell';
+    clone.querySelector('[data-field=expell]').textContent = 'Un-expel';
   } else {
     clone.querySelector('[data-field=expelledField]').textContent = '';
   }
@@ -255,11 +278,15 @@ function displayStudent(student) {
   clone.querySelector('[data-field=expell]').addEventListener('click', clickExpell);
 
   function clickExpell() {
+    fire.play();
+    expeledInfo.textContent = 'Expeled';
+    card.style.background = 'red';
+    card.classList.add('fallDown');
     student.toggleExpell();
   }
 
 
-  // set clone data
+  // set clone data on the card
   clone.querySelector("[data-field=name]").textContent = student.name;
   clone.querySelector("[data-field=house]").textContent = student.house;
   clone.querySelector('[data-field=img]').src = student.image
@@ -272,13 +299,13 @@ function getModal(clone, openModal, closeModal) {
   const btn = clone.querySelector('.btn');
   btn.addEventListener('click', openModal);
   const modal = document.querySelector('#modal');
-  const closeBtn = document.querySelector('.close-btn').addEventListener('click', closeModal);
+  document.querySelector('.close-btn').addEventListener('click', closeModal);
   return modal;
 }
 
 function modalOpen(modal, student) {
   modal.style.display = 'block';
-  //set the student name 
+  //set the student first/middle/last if they have one or not.
   document.querySelector('.student-firstName').textContent = `First name: ${student.firstName}`;
   if (student.middleName === undefined) {
     document.querySelector('.student-middleName').textContent = `Middle name: None`;
