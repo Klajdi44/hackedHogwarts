@@ -56,7 +56,7 @@ function deligator() {
   loadJSON("https://petlatkea.dk/2020/hogwarts/students.json");
   document.querySelector('#selectFilterBar').addEventListener('change', getFilterBarValue);
   document.querySelector('#sortSelect').addEventListener('input', getSortedValues);
-
+  document.querySelector('.soundImg').addEventListener('click', playTheme);
 }
 
 
@@ -76,7 +76,8 @@ function getFilterBarValue() {
   console.log(selectedValue);
   //pass value to getStudent
   getStudent(selectedValue);
-
+  //get value for animal sounds
+  animalSounds(selectedValue);
 }
 function getSortedValues() {
   const selectedValue = this.value;
@@ -113,6 +114,27 @@ function getStudent(selectedValue) {
   }
   numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
   displayList(filteredStudents);
+}
+
+function animalSounds(selected) {
+  let lionSound = new Audio('./harryp/lion.mp3');
+  let bagerSound = new Audio('./harryp/bager.mp3');
+  let eagleSound = new Audio('./harryp/eagle.mp3');
+  let snakeSound = new Audio('./harryp/snake.mp3');
+  switch (true) {
+    case selected === 'Gryffindor':
+      return lionSound.play();
+    case selected === 'Slytherin':
+      return snakeSound.play();
+    case selected === 'Ravenclaw':
+      return eagleSound.play();
+    case selected === 'Hufflepuff':
+      return bagerSound.play();
+  }
+}
+function playTheme() {
+  const theme = new Audio('./harryp/harry_potter_loop.mp3');
+  theme.play()
 }
 
 function getSortedStudent(pressedValue, sortDirection) {
@@ -264,7 +286,7 @@ function displayStudent(student) {
 
   const card = clone.querySelector('[data-field-card=card]');
   const expeledInfo = clone.querySelector('[data-field=expelledField]');
-  const fire =  new Audio('./harryp/fire.mp3');
+  const fire = new Audio('./harryp/fire.mp3');
 
 
   if (student.expelled === true) {

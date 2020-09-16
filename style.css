@@ -9,6 +9,18 @@
   transform: translateY(3em);
   font-size: 1.3em;
 }
+.soundImg img{
+  height: 100px;
+  position: absolute;
+  left: 46%;
+  border: 5px solid var(--secondary-color);
+  padding: 1.4em;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.soundImg img:active{
+  transform: scale(.9);
+}
 
 :root {
   --background-color: #2A2463;
