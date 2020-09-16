@@ -1,5 +1,5 @@
-//TODO: 1)sorting must sort from other way around.
-// 2)make filtering and sorting work together
+////TODO: 1)sorting must sort from other way around.
+//// 2)make filtering and sorting work together
 // 3) make an expell button,
 //// 4) make a place where to display the number of students that are currently displayed. 
 // 5 make the images appear.
@@ -70,18 +70,18 @@ function getSortedValues() {
   let sortDirection = this.options[this.selectedIndex].dataset.sortDirection;
   document.querySelector('[data-field=sortbtn]').addEventListener('click', changeDirection);
 
-  function changeDirection(){
+  function changeDirection() {
 
     if (sortDirection === 'asc') {
       sortDirection = 'desc';
     } else {
-     sortDirection= 'asc'
+      sortDirection = 'asc'
     }
 
     console.log(sortDirection);
     getSortedStudent(selectedValue, sortDirection);
   }
-  
+
 }
 
 function getStudent(selectedValue) {
@@ -279,7 +279,18 @@ function getModal(clone, openModal, closeModal) {
 function modalOpen(modal, student) {
   modal.style.display = 'block';
   //set the student name 
-  document.querySelector('.student-name').textContent = `Name: ${student.name}`;
+  document.querySelector('.student-firstName').textContent = `First name: ${student.firstName}`;
+  if (student.middleName === undefined) {
+    document.querySelector('.student-middleName').textContent = `Middle name: None`;
+  } else {
+    document.querySelector('.student-middleName').textContent = `Middle name: ${student.middleName}`;
+  }
+  if (student.lastName === undefined) {
+    document.querySelector('.student-lastName').textContent = `Last name: None`;
+  } else {
+    document.querySelector('.student-lastName').textContent = `Last Name: ${student.lastName}`;
+  }
+
   // set the house 
   document.querySelector('.student-house').textContent = `House: ${student.house}`;
   //set the gender
