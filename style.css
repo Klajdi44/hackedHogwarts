@@ -106,9 +106,12 @@ body {
   display: flex;
   justify-content: space-between;
 }
-select,button{
+
+select,
+button {
   cursor: pointer;
 }
+
 .filterCommon {
   display: flex;
   justify-content: space-around;
@@ -124,11 +127,13 @@ select,button{
   color: var(--desaturated-color);
   border: 0;
 }
-.filterCommon .sortBtn{
+
+.filterCommon .sortBtn {
   background: var(--background-color);
   padding: 10px 25px;
 }
-.filterCommon .sortBtn:active{
+
+.filterCommon .sortBtn:active {
   transform: scale(.8);
 }
 
@@ -226,10 +231,10 @@ select,button{
 }
 
 .modalRightSide {
-  height: 200px;
+  height: 250px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 #modal {
@@ -260,7 +265,9 @@ select,button{
   box-shadow: 10px 10px 20px rgb(0, 0, 0, 0.5);
 }
 
-#modal .student-name {
+#modal .student-firstName,
+#modal .student-middleName,
+#modal .student-lastName {
   font-size: 2em;
   font-weight: lighter;
 }
