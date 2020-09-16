@@ -45,6 +45,7 @@ function deligator() {
   loadJSON("https://petlatkea.dk/2020/hogwarts/students.json");
   document.querySelector('#selectFilterBar').addEventListener('change', getFilterBarValue);
   document.querySelector('#sortSelect').addEventListener('input', getSortedValues);
+
 }
 
 
@@ -67,15 +68,20 @@ function getFilterBarValue() {
 function getSortedValues() {
   const selectedValue = this.value;
   let sortDirection = this.options[this.selectedIndex].dataset.sortDirection;
+  document.querySelector('[data-field=sortbtn]').addEventListener('click', changeDirection);
 
-  if (sortDirection === 'asc') {
-    this.options[this.selectedIndex].dataset.sortDirection = 'desc';
-  } else {
-    this.options[this.selectedIndex].dataset.sortDirection = 'asc'
+  function changeDirection(){
+
+    if (sortDirection === 'asc') {
+      sortDirection = 'desc';
+    } else {
+     sortDirection= 'asc'
+    }
+
+    console.log(sortDirection);
+    getSortedStudent(selectedValue, sortDirection);
   }
-
-  console.log(sortDirection);
-  getSortedStudent(selectedValue, sortDirection);
+  
 }
 
 function getStudent(selectedValue) {
@@ -98,9 +104,9 @@ function getSortedStudent(pressedValue, sortDirection) {
   let sortedStudents = [];
   let direction = 1;
   if (sortDirection === 'desc') {
-    direction = -1;
-  } else {
     direction = 1;
+  } else {
+    direction = -1;
   }
 
   sortedStudents = filteredStudents.sort((a, b) => {
