@@ -50,6 +50,8 @@
         </option>
         <option class="selection" value="Ravenclaw">Ravenclaw
         </option>
+        <option class="selection" value="Expelled">Expelled
+        </option>
 
       </select>
     </div>
@@ -58,21 +60,16 @@
       <h3 class="sortHeading">Sort by:</h3>
 
       <select name="theme" id="sortSelect">
-        <option> -
+        <option data-sort-direction="asc"> -
         </option>
-        <option value="firstName">First Name
+        <option value="firstName" data-sort-direction="asc">First Name
         </option>
-        <option value="lastName">Last Name
+        <option value="lastName" data-sort-direction="asc">Last Name
         </option>
-        <option value="house">House
+        <option value="house" data-sort-direction="asc">House
         </option>
-        <!-- <option value="Slytherin">Slytherin
-        </option>
-        <option value="Ravenclaw">Ravenclaw
-        </option>
-        <option value="Hufflepuff">Hufflepuff
-        </option> -->
       </select>
+
   </section>
 
 
@@ -122,22 +119,24 @@
         <h1 class='student-name'></h1>
         <h3 class='student-house'></h3>
         <h3 class='student-gender'></h3>
-
       </div>
     </div>
   </section>
 
+  <div class="studentNumber">Hi</div>
 
   <main id='main'></main>
 
   <template id='template'>
-    <div class="cardWrapper">
+    <div data-field-card='card' class="cardWrapper">
       <img data-field='img' src="./harryp/potter_h.png">
 
       <div class="Cardcontent">
         <h2 data-field="name"></h2>
         <h4 data-field="house"></h4>
+        <h3 data-field='expelledField'>expelled</h3>
         <button data-field="button" class="cardBtn button btn">Read more</button>
+        <button data-field="expell" class="cardBtn button expell">Expell</button>
       </div>
     </div>
 
@@ -146,3 +145,6 @@
 </body>
 
 </html>
+<!--  -->
+<!--  -->
+<!--  -->

@@ -1,8 +1,15 @@
+//TODO: 1)sorting must sort from other way around.
+// 2)make filtering and sorting work together
+// 3) make an expell button,
+//// 4) make a place where to display the number of students that are currently displayed. 
+// 5 make the images appear.
+
 "use strict";
 
 window.addEventListener("DOMContentLoaded", deligator);
-
 let allStudents = [];
+let filteredStudents = [];
+let numberOfStudents = document.querySelector('.studentNumber');
 
 // The prototype for all students: 
 const Student = {
@@ -13,6 +20,17 @@ const Student = {
   gender: '',
   house: '',
   image: '',
+  expelled: false,
+  toggleExpell() {
+    // let expelledStudents = [];
+
+    if (this.expelled === false) {
+      this.expelled = true;
+    } else {
+      this.expelled = false;
+    }
+    displayList(filteredStudents);
+  }
 }
 
 // function start() {
@@ -26,7 +44,7 @@ function deligator() {
   // getButtons();
   loadJSON("https://petlatkea.dk/2020/hogwarts/students.json");
   document.querySelector('#selectFilterBar').addEventListener('change', getFilterBarValue);
-  document.querySelector('#sortSelect').addEventListener('change', getSortedValues);
+  document.querySelector('#sortSelect').addEventListener('input', getSortedValues);
 }
 
 
@@ -48,37 +66,52 @@ function getFilterBarValue() {
 }
 function getSortedValues() {
   const selectedValue = this.value;
-  console.log(selectedValue);
-  getSortedStudent(selectedValue);
+  let sortDirection = this.options[this.selectedIndex].dataset.sortDirection;
+
+  if (sortDirection === 'asc') {
+    this.options[this.selectedIndex].dataset.sortDirection = 'desc';
+  } else {
+    this.options[this.selectedIndex].dataset.sortDirection = 'asc'
+  }
+
+  console.log(sortDirection);
+  getSortedStudent(selectedValue, sortDirection);
 }
 
 function getStudent(selectedValue) {
-  let filteredStudents = [];
   if (selectedValue === '*') {
     filteredStudents = allStudents;
-
-  } else {
-    //TODO: student.type is not valid
-    filteredStudents = allStudents.filter(student => student.house === selectedValue);
-    displayStudent(filteredStudents);
   }
+  else if (selectedValue === 'Expelled') {
+    filteredStudents = allStudents.filter(students => students.expelled === true);
+    numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
+
+  }
+  else {
+    filteredStudents = allStudents.filter(student => student.house === selectedValue);
+  }
+  numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
   displayList(filteredStudents);
 }
 
-function getSortedStudent(pressedValue) {
+function getSortedStudent(pressedValue, sortDirection) {
   let sortedStudents = [];
+  let direction = 1;
+  if (sortDirection === 'desc') {
+    direction = -1;
+  } else {
+    direction = 1;
+  }
 
-  sortedStudents = allStudents.sort((a, b) => {
+  sortedStudents = filteredStudents.sort((a, b) => {
     if (a[pressedValue] < b[pressedValue]) {
-      return -1;
+      return -1 * direction;
     } else {
-      return 1;
+      return 1 * direction;
     }
   });
   displayList(sortedStudents);
 }
-
-
 
 
 async function loadJSON(url) {
@@ -90,9 +123,11 @@ async function loadJSON(url) {
 
 function prepareObjects(jsonData) {
   allStudents = jsonData.map(preapareObject);
+  filteredStudents = allStudents;
   // TODO: This might not be the function we want to call first
 
   displayList(allStudents);
+  numberOfStudents.textContent = `Students: ${allStudents.length}`
 }
 
 function preapareObject(studentObject) {
@@ -132,10 +167,10 @@ function preapareObject(studentObject) {
   const lastSpace = edittedStudent.lastIndexOf(' ');
 
   //set names
-  const firstName = edittedStudent.substring(0, firstSpace);
+  const firstName = edittedStudent.substring(0, firstSpace + 1);
+  // console.log(firstName);
   const middleName = edittedStudent.substring(firstSpace, lastSpace);
   const lastName = edittedStudent.substring(lastSpace);
-
 
   // find gender
   const genderStudent = studentObject.gender.trim();
@@ -166,9 +201,16 @@ function preapareObject(studentObject) {
   student.gender = fixedGender;
   student.house = edittedHouse
 
+  const imgLastName = lastName.substring(0, 2).toLowerCase();
+  const imgRest = lastName.substring(2)
+
+  // student.image = `./images/${lastName.toLowerCase().trim()}_${firstName.toLowerCase()}`
+  student.image = `./images/${imgLastName.trim()}${imgRest}_${firstName.substring(0, 1).toLowerCase()}.png`
+  // console.log(`./images/${lastName.toLowerCase().trim()}_${firstName.toLowerCase()}`);
+
+  // console.table(student)
   return student;
 }
-
 
 function displayList(students) {
   // clear the list
@@ -194,12 +236,27 @@ function displayStudent(student) {
     modal.style.display = 'none';
   }
 
+  const card = clone.querySelector('[data-field-card=card]');
+
+  if (student.expelled === true) {
+    clone.querySelector('[data-field=expelledField]').textContent = 'Expelled';
+    card.style.background = 'red';
+    clone.querySelector('[data-field=expell]').textContent = 'Un-expell';
+  } else {
+    clone.querySelector('[data-field=expelledField]').textContent = '';
+  }
+
+  clone.querySelector('[data-field=expell]').addEventListener('click', clickExpell);
+
+  function clickExpell() {
+    student.toggleExpell();
+  }
+
 
   // set clone data
   clone.querySelector("[data-field=name]").textContent = student.name;
   clone.querySelector("[data-field=house]").textContent = student.house;
-
-
+  clone.querySelector('[data-field=img]').src = student.image
   // append clone to list
   document.querySelector("#main").appendChild(clone);
 }
@@ -216,12 +273,13 @@ function getModal(clone, openModal, closeModal) {
 function modalOpen(modal, student) {
   modal.style.display = 'block';
   //set the student name 
-  const studentName = document.querySelector('.student-name').textContent = student.name;
+  document.querySelector('.student-name').textContent = `Name: ${student.name}`;
   // set the house 
-  const studentHouse = document.querySelector('.student-house').textContent = student.house;
+  document.querySelector('.student-house').textContent = `House: ${student.house}`;
   //set the gender
-  const studentGender = document.querySelector('.student-gender').textContent = student.gender;
-
+  document.querySelector('.student-gender').textContent = `Gender: ${student.gender}`;
+  //set the image
+  document.querySelector(' [data-field=img]').src = student.image;
 
   //get the div where the house crests will be set
   const houseCrest = document.querySelector('.house-crest');

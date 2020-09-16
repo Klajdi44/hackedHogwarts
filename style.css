@@ -5,11 +5,17 @@
   font-family: helvetica, sans-serif;
 }
 
+.studentNumber {
+  transform: translateY(3em);
+  font-size: 1.3em;
+}
+
 :root {
   --background-color: #2A2463;
   --secondary-color: #4E2C98;
   --heading-color: rgba(255, 255, 255, .9);
   --desaturated-color: rgba(255, 255, 255, 0.6);
+  --expelled-color: rgb(179, 64, 64);
 }
 
 body {
@@ -60,7 +66,14 @@ body {
   color: var(--heading-color);
   border-radius: 5px;
   border: none;
+  font-size: .9em;
 }
+
+.button.expell {
+  background: var(--expelled-color);
+
+}
+
 
 .hero .arrowDown {
   position: absolute;
@@ -127,6 +140,7 @@ body {
 
 .cardWrapper {
   background-color: var(--secondary-color);
+  position: relative;
   margin-top: 7em;
   width: 500px;
   height: 250px;
@@ -139,6 +153,12 @@ body {
 
 .Cardcontent {
   /* transform: translateX(-3em); */
+}
+
+[data-field='expelledField'] {
+  position: absolute;
+  top: 5%;
+  right: 5%;
 }
 
 [data-field="name"] {
@@ -197,7 +217,10 @@ body {
 }
 
 .modalRightSide {
-  margin: 3em;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 #modal {
