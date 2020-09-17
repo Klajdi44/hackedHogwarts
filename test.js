@@ -41,6 +41,16 @@ const Student = {
     setTimeout(() => {
       displayList(filteredStudents);
     }, 500);
+  },
+  squad: false,
+  toggleSquad() {
+    if (this.squad === false) {
+      this.squad = true;
+    } else {
+      this.squad = false;}
+    
+    numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
+    displayList(filteredStudents);
   }
 }
 
@@ -83,13 +93,14 @@ function getSortedValues() {
   const selectedValue = this.value;
   let sortDirection = this.options[this.selectedIndex].dataset.sortDirection;
   document.querySelector('[data-field=sortbtn]').addEventListener('click', changeDirection);
-
   function changeDirection() {
-
     if (sortDirection === 'asc') {
       sortDirection = 'desc';
+      document.querySelector('[data-field=sortbtn]').textContent = `Sort ↑`
     } else {
       sortDirection = 'asc'
+      document.querySelector('[data-field=sortbtn]').textContent = `Sort ↓`
+
     }
 
     console.log(sortDirection);
@@ -107,10 +118,13 @@ function getStudent(selectedValue) {
     // show only students that are expeled
     filteredStudents = allStudents.filter(students => students.expelled === true);
     numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
+  } else if (selectedValue === 'Inquisitorial') {
+    filteredStudents = allStudents.filter(students => students.squad === true);
+    numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
   }
   else {
     // show only students based on their house and the ones who are not expelled
-    filteredStudents = allStudents.filter(student => student.house === selectedValue && student.expelled === false);
+    filteredStudents = allStudents.filter(student => student.house === selectedValue && student.expelled === false && student.squad === false);
   }
   numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
   displayList(filteredStudents);
@@ -307,6 +321,17 @@ function displayStudent(student) {
     student.toggleExpell();
   }
 
+  clone.querySelector('[data-field=inquisBtn]').addEventListener('click', clickSquad);
+
+  if (student.squad === true) {
+    clone.querySelector('[data-field=inquisBtn]').style.opacity = 1;
+    card.style.background = 'black';
+  }
+
+  function clickSquad() {
+    student.toggleSquad();
+  }
+
 
   // set clone data on the card
   clone.querySelector("[data-field=name]").textContent = student.name;
@@ -365,7 +390,7 @@ function modalOpen(modal, student) {
       break;
   }
 
-
+ 
   //themes
   const modalContent = document.querySelector("#modal .modal-content");
   //change color automatically when you open the modal

@@ -3,13 +3,17 @@
   margin: 0;
   box-sizing: border-box;
   font-family: helvetica, sans-serif;
+  scroll-behavior: smooth;
 }
+
+
 
 .studentNumber {
   transform: translateY(3em);
   font-size: 1.3em;
 }
-.soundImg img{
+
+.soundImg img {
   height: 100px;
   position: absolute;
   left: 46%;
@@ -18,7 +22,8 @@
   border-radius: 50%;
   cursor: pointer;
 }
-.soundImg img:active{
+
+.soundImg img:active {
   transform: scale(.9);
 }
 
@@ -34,6 +39,7 @@ body {
   background: var(--background-color);
   color: var(--heading-color);
   padding: 2.5em;
+  overflow-x: hidden;
 }
 
 /* hero section starts here */
@@ -64,6 +70,7 @@ body {
   line-height: 150%;
   color: var(--desaturated-color);
   margin: 1.3em 0;
+  font-weight: lighter;
 
 }
 
@@ -299,6 +306,46 @@ button {
   cursor: pointer;
 }
 
+.inquis {
+  padding: 20px 20px;
+  position: absolute;
+  bottom: 4%;
+  left: 90%;
+  background: url(./harryp/spy.png);
+  background-position: center;
+  background-size: cover;
+  opacity: .3;
+  cursor: pointer;
+}
+
+.inquis .inquisText {
+  visibility: hidden;
+  width: 250px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 10px 0;
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: 50%;
+  transform: translate(35%, 50%);
+
+}
+
+.inquis:hover {
+  opacity: .7;
+}
+
+.inquis:active {
+  transform: scale(.8);
+}
+
+.inquis:hover .inquisText {
+  visibility: visible;
+}
+
 .close-btn:hover {
   color: rgba(0, 0, 0, 0.9)
 }
@@ -333,7 +380,7 @@ button {
 @keyframes falling {
   0% {
     opacity: .9;
-    transform:  translateY(1em) scale(.9);
+    transform: translateY(1em) scale(.9);
   }
 
   30% {
@@ -343,12 +390,12 @@ button {
 
   60% {
     opacity: .4;
-    transform:  translateY(3em) scale(.8);
+    transform: translateY(3em) scale(.8);
   }
 
   100% {
     opacity: 0;
-    transform:  translateY(4em) scale(.750);
+    transform: translateY(4em) scale(.750);
   }
 }
 
