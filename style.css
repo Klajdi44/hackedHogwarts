@@ -339,7 +339,7 @@ button {
 }
 
 .inquis:active {
-  transform: scale(.8);
+  transform: scale(.9);
 }
 
 .inquis:hover .inquisText {
