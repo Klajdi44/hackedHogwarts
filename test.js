@@ -47,16 +47,17 @@ const Student = {
     if (this.squad === false) {
       this.squad = true;
     } else {
-      this.squad = false;}
-    
+      this.squad = false;
+    }
+
     numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
     displayList(filteredStudents);
-  }
+  },
+  prefect: false,
 }
 
 // function start() {
 //   console.log("ready");
-//   // TODO: Add event-listeners to filter and sort buttons
 
 //   deligator();
 // }
@@ -322,7 +323,7 @@ function displayStudent(student) {
   }
 
   clone.querySelector('[data-field=inquisBtn]').addEventListener('click', clickSquad);
-
+  //inquisitorial squad
   if (student.squad === true) {
     clone.querySelector('[data-field=inquisBtn]').style.opacity = 1;
     card.style.background = 'black';
@@ -332,6 +333,24 @@ function displayStudent(student) {
     student.toggleSquad();
   }
 
+  //prefect
+  clone.querySelector('[data-field=prefectBtn]').addEventListener('click', clickPrefect);
+  if (student.prefect === true) {
+    clone.querySelector('[data-field=prefectBtn]').style.opacity = 1;
+    card.style.background = '#ff8000'
+  }
+
+  function clickPrefect() {
+    if (student.prefect === true) {
+      student.prefect = false;
+    } else {
+      tryToMakePrefect(student)
+    }
+    numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
+    displayList(filteredStudents);
+  }
+
+
 
   // set clone data on the card
   clone.querySelector("[data-field=name]").textContent = student.name;
@@ -339,6 +358,62 @@ function displayStudent(student) {
   clone.querySelector('[data-field=img]').src = student.image
   // append clone to list
   document.querySelector("#main").appendChild(clone);
+}
+
+function tryToMakePrefect(selectedStudent) {
+
+  const prefectsArray = allStudents.filter(student => student.prefect);
+
+  const numberOfPrefects = prefectsArray.length;
+
+  const other = prefectsArray.filter(student => student.house === selectedStudent.house).shift();
+
+  //if there is another of same house
+  if (other !== undefined && other !== other.numberOfPrefects) {
+    console.log(`There can be only one prefects from each house`);
+    removeOther(other);
+  } else if (numberOfPrefects > 9) {
+    // console.log(`there can only be 2 prefects!`);
+    removeAorB(prefectsArray[0], prefectsArray[1]);
+  } else {
+    makePrefect(selectedStudent);
+  }
+
+
+
+  makePrefect(selectedStudent)
+
+
+  function removeOther(other) {
+    //ask user to ignore or remove other
+
+    //if ignore - do nothing
+    //if remove-other
+    removePrefect(other);
+    makePrefect(selectedStudent);
+  }
+
+  function removeAorB(prefectA, prefectB) {
+    //ask user to ignore or remove A or B
+    // if ignore do nothing
+    //if removeA:
+    removePrefect(prefectA);
+    makePrefect(selectedStudent);
+
+    //else - if removeB
+    removePrefect(prefectB);
+    makePrefect(selectedStudent);
+
+  }
+
+  function removePrefect(currentPrefect) {
+    currentPrefect.prefect = false;
+  }
+
+  function makePrefect(prefects) {
+    prefects.prefect = true;
+  }
+
 }
 
 
@@ -390,7 +465,20 @@ function modalOpen(modal, student) {
       break;
   }
 
- 
+  fetch('https://petlatkea.dk/2020/hogwarts/families.json').then(response => response.json()).then(data => {
+    const pure = data.pure;
+    const half = data.half;
+
+    if (pure.includes(student.lastName)) {
+      document.querySelector('.student-blood').textContent = `Blood Status: Pure blood`
+    } else if (half.includes(student.lastName)) {
+      document.querySelector('.student-blood').textContent = `Blood Status: Half blood`
+    } else {
+      document.querySelector('.student-blood').textContent = `Blood Status: Muggle blood`
+    }
+  })
+
+
   //themes
   const modalContent = document.querySelector("#modal .modal-content");
   //change color automatically when you open the modal

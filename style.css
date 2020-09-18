@@ -284,15 +284,14 @@ button {
   box-shadow: 10px 10px 20px rgb(0, 0, 0, 0.5);
 }
 
+
+
+#modal .student-house,
+#modal .student-gender,
+#modal .student-blood,
 #modal .student-firstName,
 #modal .student-middleName,
 #modal .student-lastName {
-  font-size: 2em;
-  font-weight: lighter;
-}
-
-#modal .student-house,
-#modal .student-gender {
   font-size: 1.5em;
   font-weight: lighter;
 }
@@ -314,7 +313,7 @@ button {
   background: url(./harryp/spy.png);
   background-position: center;
   background-size: cover;
-  opacity: .3;
+  opacity: .2;
   cursor: pointer;
 }
 
@@ -345,6 +344,23 @@ button {
 .inquis:hover .inquisText {
   visibility: visible;
 }
+
+.prefect {
+  background: url(./harryp/pngkey.com-hufflepuff-png-1676536.png);
+  background-size: cover;
+  background-position: center;
+  padding: 15px 15px;
+  bottom: 4%;
+  left: 3%;
+}
+
+.prefect .prefText {
+  top: 50%;
+  right: 50%;
+  transform: translate(60%, 50%);
+  width: 160px;
+}
+
 
 .close-btn:hover {
   color: rgba(0, 0, 0, 0.9)
