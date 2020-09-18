@@ -222,18 +222,21 @@ function preapareObject(studentObject) {
 
   //TODO:fix this mess with 2 times =
   const edittedStudent = student.name = letterArray.join('');
-  // console.log(edittedStudent);
-
 
   // find first,middle,last name
   const firstSpace = edittedStudent.indexOf(' ');
   const lastSpace = edittedStudent.lastIndexOf(' ');
-
   //set names
-  const firstName = edittedStudent.substring(0, firstSpace + 1);
-  // console.log(firstName);
+  let firstName;
+  if (firstSpace === -1) {
+    firstName = edittedStudent.trim();
+  } else {
+    firstName = edittedStudent.substring(0, firstSpace);
+  }
+  console.log(firstName);
   const middleName = edittedStudent.substring(firstSpace, lastSpace);
   const lastName = edittedStudent.substring(lastSpace);
+  console.log(lastName);
 
   // find gender
   const genderStudent = studentObject.gender.trim();
@@ -260,16 +263,26 @@ function preapareObject(studentObject) {
     student.middleName = middleName.trim();
   }
   //set the first of object to be equal to variable lastName
-  student.lastName = lastName.trim();
+  if (firstName === lastName) {
+    student.lastName = undefined;
+  } else {
+    student.lastName = lastName.trim();
+  }
   student.gender = fixedGender;
   student.house = edittedHouse
 
   const imgLastName = lastName.substring(0, 2).toLowerCase();
   const imgRest = lastName.substring(2)
 
-  // student.image = `./images/${lastName.toLowerCase().trim()}_${firstName.toLowerCase()}`
-  student.image = `./images/${imgLastName.trim()}${imgRest}_${firstName.substring(0, 1).toLowerCase()}.png`
-  // console.log(`./images/${lastName.toLowerCase().trim()}_${firstName.toLowerCase()}`);
+  //get the images
+  if (student.lastName === 'Patil') {
+    student.image = `./images/${lastName.toLowerCase().trim()}_${firstName.toLowerCase().trim()}.png`
+  } else if (student.firstName === 'Leanne') {
+    student.image = 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'
+  }
+  else {
+    student.image = `./images/${imgLastName.trim()}${imgRest}_${firstName.substring(0, 1).toLowerCase()}.png`
+  }
 
   // console.table(student)
   return student;
@@ -477,7 +490,6 @@ function modalOpen(modal, student) {
       document.querySelector('.student-blood').textContent = `Blood Status: Muggle blood`
     }
   })
-
 
   //themes
   const modalContent = document.querySelector("#modal .modal-content");
