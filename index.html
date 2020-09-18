@@ -16,12 +16,14 @@
       <h1 class='heroHeading'>Hogrwarts student list</h1>
       <p class='heroDesc'>Welcome to the Hogwarts class of 1991 student list where you can find different information
         about the students that were attending Hogwarts in 1991.</p>
-     <a href="#sortSelect"><button class='heroBtn button'>View List</button></a> 
+      <a href="#sortSelect"><button class='heroBtn button'>View List</button></a>
 
     </div>
 
     <div class="arrowDown">⌄</div>
     <img src="./harryp/crests.png" alt="hogwarts">
+    <div class="soundImg"> <img src="./harryp/music.png"></div>
+
 
   </section>
 
@@ -57,7 +59,7 @@
       </select>
     </div>
 
-    <div class="soundImg"> <img src="./harryp/music.png"></div>
+    <input class='search' type="text" placeholder="🔍 Search student">
 
     <div class='sort filterCommon'>
       <h3 class="sortHeading">Sort by:</h3>
@@ -112,20 +114,20 @@
 
   </div> -->
 
-
   <!-- modal part -->
   <section id="modal">
     <div class="modal-content" data-theme=''>
       <div class="house-crest"></div>
 
       <div class='close-btn'>X</div>
-      <img data-field='img' src="./harryp/potter_h.png">
+      <img data-field='img' src="">
       <div class="modalRightSide">
         <h1 class='student-firstName'></h1>
         <h1 class='student-middleName'></h1>
         <h1 class='student-lastName'></h1>
         <h3 class='student-house'></h3>
         <h3 class='student-gender'></h3>
+        <h3 class='student-blood'></h3>
       </div>
     </div>
   </section>
@@ -144,10 +146,14 @@
         <h3 data-field='expelledField'>expelled</h3>
         <button data-field="button" class="cardBtn button btn">Read more</button>
         <button data-field="expell" class="cardBtn button expell">Expell</button>
-        <div class="button inquis" data-field='inquisBtn'>  <span class="inquisText">Add or remove to Inquisitorial squad</span>
+        <div class="button inquis" data-field='inquisBtn'> <span class="inquisText">Add or remove to Inquisitorial
+            squad</span>
+        </div>
+        <div class="button inquis prefect" data-field='prefectBtn'> <span class="inquisText prefText">Add or remove
+            prefect
+          </span>
         </div>
       </div>
-    </div>
 
   </template>
   <script src="test.js"></script>

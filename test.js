@@ -2,7 +2,14 @@
 //// 2)make filtering and sorting work together
 //// 3) make an expell button,
 //// 4) make a place where to display the number of students that are currently displayed. 
-// 5 make the images appear.
+////5) make the images appear.
+// 6) make prefects work as it should.
+// 7) hack the system
+//8) implement search bar
+//9) sort by gender 
+// 10) filter by prefects
+
+
 
 "use strict";
 
@@ -24,6 +31,8 @@ const Student = {
   house: '',
   image: '',
   expelled: false,
+  squad: false,
+  prefect: false,
   toggleExpell() {
     //if student expeled = false make it to true,
     if (this.expelled === false) {
@@ -42,21 +51,20 @@ const Student = {
       displayList(filteredStudents);
     }, 500);
   },
-  squad: false,
   toggleSquad() {
     if (this.squad === false) {
       this.squad = true;
     } else {
-      this.squad = false;}
-    
+      this.squad = false;
+    }
+
     numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
     displayList(filteredStudents);
-  }
+  },
 }
 
 // function start() {
 //   console.log("ready");
-//   // TODO: Add event-listeners to filter and sort buttons
 
 //   deligator();
 // }
@@ -67,6 +75,7 @@ function deligator() {
   document.querySelector('#selectFilterBar').addEventListener('change', getFilterBarValue);
   document.querySelector('#sortSelect').addEventListener('input', getSortedValues);
   document.querySelector('.soundImg').addEventListener('click', playTheme);
+  document.querySelector('.search').addEventListener('input', searchStudent);
 }
 
 
@@ -221,16 +230,17 @@ function preapareObject(studentObject) {
 
   //TODO:fix this mess with 2 times =
   const edittedStudent = student.name = letterArray.join('');
-  // console.log(edittedStudent);
-
 
   // find first,middle,last name
   const firstSpace = edittedStudent.indexOf(' ');
   const lastSpace = edittedStudent.lastIndexOf(' ');
-
   //set names
-  const firstName = edittedStudent.substring(0, firstSpace + 1);
-  // console.log(firstName);
+  let firstName;
+  if (firstSpace === -1) {
+    firstName = edittedStudent.trim();
+  } else {
+    firstName = edittedStudent.substring(0, firstSpace);
+  }
   const middleName = edittedStudent.substring(firstSpace, lastSpace);
   const lastName = edittedStudent.substring(lastSpace);
 
@@ -259,16 +269,26 @@ function preapareObject(studentObject) {
     student.middleName = middleName.trim();
   }
   //set the first of object to be equal to variable lastName
-  student.lastName = lastName.trim();
+  if (firstName === lastName) {
+    student.lastName = undefined;
+  } else {
+    student.lastName = lastName.trim();
+  }
   student.gender = fixedGender;
   student.house = edittedHouse
 
   const imgLastName = lastName.substring(0, 2).toLowerCase();
   const imgRest = lastName.substring(2)
 
-  // student.image = `./images/${lastName.toLowerCase().trim()}_${firstName.toLowerCase()}`
-  student.image = `./images/${imgLastName.trim()}${imgRest}_${firstName.substring(0, 1).toLowerCase()}.png`
-  // console.log(`./images/${lastName.toLowerCase().trim()}_${firstName.toLowerCase()}`);
+  //get the images
+  if (student.lastName === 'Patil') {
+    student.image = `./images/${lastName.toLowerCase().trim()}_${firstName.toLowerCase().trim()}.png`
+  } else if (student.firstName === 'Leanne') {
+    student.image = 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'
+  }
+  else {
+    student.image = `./images/${imgLastName.trim()}${imgRest}_${firstName.substring(0, 1).toLowerCase()}.png`
+  }
 
   // console.table(student)
   return student;
@@ -322,7 +342,7 @@ function displayStudent(student) {
   }
 
   clone.querySelector('[data-field=inquisBtn]').addEventListener('click', clickSquad);
-
+  //inquisitorial squad
   if (student.squad === true) {
     clone.querySelector('[data-field=inquisBtn]').style.opacity = 1;
     card.style.background = 'black';
@@ -332,6 +352,23 @@ function displayStudent(student) {
     student.toggleSquad();
   }
 
+  //prefect
+  clone.querySelector('[data-field=prefectBtn]').addEventListener('click', clickPrefect);
+  if (student.prefect === true) {
+    clone.querySelector('[data-field=prefectBtn]').style.opacity = 1;
+    card.style.background = '#ff8000'
+  }
+
+  function clickPrefect() {
+    if (student.prefect === true) {
+      student.prefect = false;
+    } else {
+      tryToMakePrefect(student)
+    }
+    numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
+    displayList(filteredStudents);
+  }
+
 
   // set clone data on the card
   clone.querySelector("[data-field=name]").textContent = student.name;
@@ -339,6 +376,68 @@ function displayStudent(student) {
   clone.querySelector('[data-field=img]').src = student.image
   // append clone to list
   document.querySelector("#main").appendChild(clone);
+}
+
+function tryToMakePrefect(selectedStudent) {
+
+  const prefectsArray = allStudents.filter(student => student.prefect);
+
+  const numberOfPrefects = prefectsArray.length;
+
+  const other = prefectsArray.filter(student => student.house === selectedStudent.house).shift();
+
+  //if there is another of same house
+  if (other !== undefined && other !== other.numberOfPrefects) {
+    console.log(`There can be only one prefects from each house`);
+    removeOther(other);
+  } else if (numberOfPrefects > 9) {
+    // console.log(`there can only be 2 prefects!`);
+    removeAorB(prefectsArray[0], prefectsArray[1]);
+  } else {
+    makePrefect(selectedStudent);
+  }
+
+  makePrefect(selectedStudent)
+
+  function removeOther(other) {
+    //ask user to ignore or remove other
+
+    //if ignore - do nothing
+    //if remove-other
+    removePrefect(other);
+    makePrefect(selectedStudent);
+  }
+
+  function removeAorB(prefectA, prefectB) {
+    //ask user to ignore or remove A or B
+    // if ignore do nothing
+    //if removeA:
+    removePrefect(prefectA);
+    makePrefect(selectedStudent);
+
+    //else - if removeB
+    removePrefect(prefectB);
+    makePrefect(selectedStudent);
+
+  }
+
+  function removePrefect(currentPrefect) {
+    currentPrefect.prefect = false;
+  }
+
+  function makePrefect(prefects) {
+    prefects.prefect = true;
+  }
+
+}
+
+function searchStudent() {
+  const searchValue = document.querySelector('.search').value;
+  const search = filteredStudents.filter(element =>
+    element.name.toUpperCase().includes(searchValue.toUpperCase())
+    || element.name.toLowerCase().includes(searchValue.toLowerCase()));
+    numberOfStudents.textContent = `Students: ${search.length}`;
+  displayList(search);
 }
 
 
@@ -390,7 +489,19 @@ function modalOpen(modal, student) {
       break;
   }
 
- 
+  fetch('https://petlatkea.dk/2020/hogwarts/families.json').then(response => response.json()).then(data => {
+    const pure = data.pure;
+    const half = data.half;
+
+    if (pure.includes(student.lastName)) {
+      document.querySelector('.student-blood').textContent = `Blood Status: Pure blood`
+    } else if (half.includes(student.lastName)) {
+      document.querySelector('.student-blood').textContent = `Blood Status: Half blood`
+    } else {
+      document.querySelector('.student-blood').textContent = `Blood Status: Muggle blood`
+    }
+  })
+
   //themes
   const modalContent = document.querySelector("#modal .modal-content");
   //change color automatically when you open the modal
