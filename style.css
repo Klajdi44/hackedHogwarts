@@ -16,7 +16,8 @@
 .soundImg img {
   height: 100px;
   position: absolute;
-  left: 46%;
+  left: 5%;
+  bottom: 10%;
   border: 5px solid var(--secondary-color);
   padding: 1.4em;
   border-radius: 50%;
@@ -165,9 +166,15 @@ button {
   width: 50%;
 }
 
+.search{
+  height: 40px;
+  width: 20%;
+  align-self: center;
+  border-radius: 5px;
+  padding: 1em;
+  font-size: 1em;
+}
 /** filter section starts here */
-
-
 
 /*card section starts ends here */
 
@@ -222,6 +229,7 @@ button {
   flex-wrap: wrap;
   gap: 2em;
   margin: 0 auto;
+  min-height: 90vh;
 }
 
 /* card section ends here */

@@ -2,7 +2,14 @@
 //// 2)make filtering and sorting work together
 //// 3) make an expell button,
 //// 4) make a place where to display the number of students that are currently displayed. 
-// 5 make the images appear.
+////5) make the images appear.
+// 6) make prefects work as it should.
+// 7) hack the system
+//8) implement search bar
+//9) sort by gender 
+// 10) filter by prefects
+
+
 
 "use strict";
 
@@ -24,6 +31,8 @@ const Student = {
   house: '',
   image: '',
   expelled: false,
+  squad: false,
+  prefect: false,
   toggleExpell() {
     //if student expeled = false make it to true,
     if (this.expelled === false) {
@@ -42,7 +51,6 @@ const Student = {
       displayList(filteredStudents);
     }, 500);
   },
-  squad: false,
   toggleSquad() {
     if (this.squad === false) {
       this.squad = true;
@@ -53,7 +61,6 @@ const Student = {
     numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
     displayList(filteredStudents);
   },
-  prefect: false,
 }
 
 // function start() {
@@ -68,6 +75,7 @@ function deligator() {
   document.querySelector('#selectFilterBar').addEventListener('change', getFilterBarValue);
   document.querySelector('#sortSelect').addEventListener('input', getSortedValues);
   document.querySelector('.soundImg').addEventListener('click', playTheme);
+  document.querySelector('.search').addEventListener('input', searchStudent);
 }
 
 
@@ -233,10 +241,8 @@ function preapareObject(studentObject) {
   } else {
     firstName = edittedStudent.substring(0, firstSpace);
   }
-  console.log(firstName);
   const middleName = edittedStudent.substring(firstSpace, lastSpace);
   const lastName = edittedStudent.substring(lastSpace);
-  console.log(lastName);
 
   // find gender
   const genderStudent = studentObject.gender.trim();
@@ -364,7 +370,6 @@ function displayStudent(student) {
   }
 
 
-
   // set clone data on the card
   clone.querySelector("[data-field=name]").textContent = student.name;
   clone.querySelector("[data-field=house]").textContent = student.house;
@@ -392,10 +397,7 @@ function tryToMakePrefect(selectedStudent) {
     makePrefect(selectedStudent);
   }
 
-
-
   makePrefect(selectedStudent)
-
 
   function removeOther(other) {
     //ask user to ignore or remove other
@@ -427,6 +429,15 @@ function tryToMakePrefect(selectedStudent) {
     prefects.prefect = true;
   }
 
+}
+
+function searchStudent() {
+  const searchValue = document.querySelector('.search').value;
+  const search = filteredStudents.filter(element =>
+    element.name.toUpperCase().includes(searchValue.toUpperCase())
+    || element.name.toLowerCase().includes(searchValue.toLowerCase()));
+    numberOfStudents.textContent = `Students: ${search.length}`;
+  displayList(search);
 }
 
 
