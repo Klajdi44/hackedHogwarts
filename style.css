@@ -7,7 +7,6 @@
 }
 
 
-
 .studentNumber {
   transform: translateY(3em);
   font-size: 1.3em;
@@ -18,7 +17,7 @@
   position: absolute;
   left: 5%;
   bottom: 10%;
-  border: 5px solid var(--secondary-color);
+  border: 5px solid #9663fa;
   padding: 1.4em;
   border-radius: 50%;
   cursor: pointer;
@@ -51,8 +50,19 @@ body {
   position: relative;
 }
 
-.hero img {
+.houseCrest {
   max-height: 90%;
+  animation: rota 5s;
+}
+
+@keyframes rota {
+  from {
+    transform: scale(.2);
+  }
+
+  to {
+    transform: scale(1);
+  }
 }
 
 .hero .heroHeading {
@@ -166,7 +176,7 @@ button {
   width: 50%;
 }
 
-.search{
+.search {
   height: 40px;
   width: 20%;
   align-self: center;
@@ -174,6 +184,7 @@ button {
   padding: 1em;
   font-size: 1em;
 }
+
 /** filter section starts here */
 
 /*card section starts ends here */
@@ -182,18 +193,17 @@ button {
   background-color: var(--secondary-color);
   position: relative;
   margin-top: 7em;
-  width: 500px;
-  height: 250px;
+  width: 510px;
+  height: 270px;
   border-radius: 15px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   box-shadow: 10px 10px 15px rgb(0, 0, 0, 0.3);
+  margin: .2em auto;
 }
 
-.Cardcontent {
-  /* transform: translateX(-3em); */
-}
+
 
 [data-field='expelledField'] {
   position: absolute;
@@ -202,9 +212,8 @@ button {
 }
 
 [data-field="name"] {
-  font-size: 1.8em;
-  font-weight: lighter;
-
+  font-size: 1.7em;
+  font-weight: bold;
 }
 
 [data-field="house"] {
@@ -225,11 +234,11 @@ button {
 }
 
 #main {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2em;
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+  grid-gap: 3em;
   min-height: 90vh;
+  margin: 7em 0;
 }
 
 /* card section ends here */
@@ -301,7 +310,7 @@ button {
 #modal .student-middleName,
 #modal .student-lastName {
   font-size: 1.5em;
-  font-weight: lighter;
+  font-weight: normal;
 }
 
 .close-btn {

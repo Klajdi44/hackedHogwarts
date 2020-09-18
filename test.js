@@ -385,9 +385,10 @@ function tryToMakePrefect(selectedStudent) {
   const numberOfPrefects = prefectsArray.length;
 
   const other = prefectsArray.filter(student => student.house === selectedStudent.house).shift();
+  const gender = prefectsArray.filter(student => student.gender === selectedStudent.gender).shift();
 
   //if there is another of same house
-  if (other !== undefined && other !== other.numberOfPrefects) {
+  if (gender !== undefined) {
     console.log(`There can be only one prefects from each house`);
     removeOther(other);
   } else if (numberOfPrefects > 9) {
