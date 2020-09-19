@@ -348,7 +348,7 @@ function displayStudent(student) {
   //if hacker
   if (student.hacker) {
     expeledInfo.textContent = '';
-    clone.querySelector('[data-field=expell]').textContent = 'Try it if you can';
+    clone.querySelector('[data-field=expell]').textContent = 'Expel me if you can';
     clone.querySelector('[data-field=expell]').disabled = true;
   }
 
@@ -580,8 +580,8 @@ function hackTheSystem() {
     // }, 5100);
 
   }
-  
-  allStudents.unshift(injectMyself);
+
+  filteredStudents.unshift(injectMyself);
   numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
   displayList(filteredStudents)
 }
