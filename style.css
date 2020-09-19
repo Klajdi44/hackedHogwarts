@@ -2,10 +2,19 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: helvetica, sans-serif;
   scroll-behavior: smooth;
 }
 
+@font-face {
+  font-family: hacked;
+  src: url(./harryp/Hacked-KerX.ttf);
+}
+
+.hacked {
+  color: var(--expelled-color);
+  font-size: 1.2em;
+  cursor: pointer;
+}
 
 .studentNumber {
   transform: translateY(3em);
@@ -40,6 +49,7 @@ body {
   color: var(--heading-color);
   padding: 2.5em;
   overflow-x: hidden;
+  font-family: helvetica, sans-serif;
 }
 
 /* hero section starts here */
@@ -67,6 +77,8 @@ body {
 
 .hero .heroHeading {
   font-size: 3.5em;
+  position: relative;
+
 }
 
 .hero .content {
@@ -347,8 +359,24 @@ button {
   top: 50%;
   right: 50%;
   transform: translate(35%, 50%);
-
 }
+
+.hacked .inquisText{
+  font-size: .3em;
+  visibility: hidden;
+  width: 250px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 10px 0;
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: 50%;
+  transform: translate(-50%, 60%)
+}
+
 
 .inquis:hover {
   opacity: .7;
@@ -358,7 +386,7 @@ button {
   transform: scale(.9);
 }
 
-.inquis:hover .inquisText {
+.inquis:hover .inquisText, .hacked:hover .inquisText {
   visibility: visible;
 }
 
@@ -434,4 +462,36 @@ button {
 
 .fallDown {
   animation: falling .6s ease-in;
+}
+
+@keyframes spining {
+  from {
+    transform: rotate(0deg) translateX(0);
+  }
+
+  to {
+    transform: rotate(360deg) translateX(30em);
+  }
+}
+
+.spin {
+  animation: spining 5s infinite alternate;
+}
+
+.systemHacked  {
+position: fixed;
+top: 0;
+bottom: 0;
+right: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+z-index: 5;
+display: none;
+}
+
+.systemHacked video{
+  min-height: 100vh;
+  min-width: 100vw;
+
 }

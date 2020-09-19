@@ -5,7 +5,7 @@
 ////5) make the images appear.
 // 6) make prefects work as it should.
 // 7) hack the system
-//8) implement search bar
+////8) implement search bar
 //9) sort by gender 
 // 10) filter by prefects
 
@@ -20,6 +20,7 @@ let allStudents = [];
 let filteredStudents = [];
 //init the array.length tracker
 let numberOfStudents = document.querySelector('.studentNumber');
+let systemHacked = false;
 
 // The prototype for all students: 
 const Student = {
@@ -30,6 +31,7 @@ const Student = {
   gender: '',
   house: '',
   image: '',
+  hacker: '',
   expelled: false,
   squad: false,
   prefect: false,
@@ -46,7 +48,7 @@ const Student = {
       filteredStudents = filteredStudents.filter(student => student.expelled === true);
     }
     numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
-    //display updated array
+    //display updated array after a delay so class can take place
     setTimeout(() => {
       displayList(filteredStudents);
     }, 500);
@@ -58,9 +60,21 @@ const Student = {
       this.squad = false;
     }
 
+    if (systemHacked) {
+      this.removeInq();
+    }
     numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
     displayList(filteredStudents);
   },
+  removeInq() {
+    if (this.squad === true) {
+      setTimeout(() => {
+        this.squad = false;
+        displayList(filteredStudents);
+      }, 2000)
+    }
+  }
+
 }
 
 // function start() {
@@ -76,6 +90,7 @@ function deligator() {
   document.querySelector('#sortSelect').addEventListener('input', getSortedValues);
   document.querySelector('.soundImg').addEventListener('click', playTheme);
   document.querySelector('.search').addEventListener('input', searchStudent);
+  document.querySelector('.hacked').addEventListener('click', hackTheSystem);
 }
 
 
@@ -112,7 +127,7 @@ function getSortedValues() {
 
     }
 
-    console.log(sortDirection);
+    // console.log(sortDirection);
     getSortedStudent(selectedValue, sortDirection);
   }
 
@@ -330,6 +345,12 @@ function displayStudent(student) {
   } else {
     clone.querySelector('[data-field=expelledField]').textContent = '';
   }
+  //if hacker
+  if (student.hacker) {
+    expeledInfo.textContent = '';
+    clone.querySelector('[data-field=expell]').textContent = 'Try it if you can';
+    clone.querySelector('[data-field=expell]').disabled = true;
+  }
 
   clone.querySelector('[data-field=expell]').addEventListener('click', clickExpell);
 
@@ -371,7 +392,13 @@ function displayStudent(student) {
 
 
   // set clone data on the card
-  clone.querySelector("[data-field=name]").textContent = student.name;
+  const random = Math.floor(Math.random() * allStudents.length);
+  if (systemHacked) {
+    clone.querySelector("[data-field=name]").textContent = allStudents[random].name;
+  }
+  else {
+    clone.querySelector("[data-field=name]").textContent = student.name;
+  }
   clone.querySelector("[data-field=house]").textContent = student.house;
   clone.querySelector('[data-field=img]').src = student.image
   // append clone to list
@@ -381,6 +408,7 @@ function displayStudent(student) {
 function tryToMakePrefect(selectedStudent) {
 
   const prefectsArray = allStudents.filter(student => student.prefect);
+  const genderArray = allStudents.filter(student => student.gender);
 
   const numberOfPrefects = prefectsArray.length;
 
@@ -388,7 +416,7 @@ function tryToMakePrefect(selectedStudent) {
   const gender = prefectsArray.filter(student => student.gender === selectedStudent.gender).shift();
 
   //if there is another of same house
-  if (gender !== undefined) {
+  if (gender !== undefined && other !== gender) {
     console.log(`There can be only one prefects from each house`);
     removeOther(other);
   } else if (numberOfPrefects > 9) {
@@ -437,7 +465,7 @@ function searchStudent() {
   const search = filteredStudents.filter(element =>
     element.name.toUpperCase().includes(searchValue.toUpperCase())
     || element.name.toLowerCase().includes(searchValue.toLowerCase()));
-    numberOfStudents.textContent = `Students: ${search.length}`;
+  numberOfStudents.textContent = `Students: ${search.length}`;
   displayList(search);
 }
 
@@ -493,12 +521,18 @@ function modalOpen(modal, student) {
   fetch('https://petlatkea.dk/2020/hogwarts/families.json').then(response => response.json()).then(data => {
     const pure = data.pure;
     const half = data.half;
+    const bloodStatus = ['Pure Blood', 'Half Blood', 'Muggle Blood'];
+    const random = Math.floor(Math.random() * bloodStatus.length);
 
-    if (pure.includes(student.lastName)) {
+    if (systemHacked) {
+      document.querySelector('.student-blood').textContent = `Blood Status: ${bloodStatus[random]}`
+    }
+    else if (pure.includes(student.lastName)) {
       document.querySelector('.student-blood').textContent = `Blood Status: Pure blood`
     } else if (half.includes(student.lastName)) {
       document.querySelector('.student-blood').textContent = `Blood Status: Half blood`
-    } else {
+    }
+    else {
       document.querySelector('.student-blood').textContent = `Blood Status: Muggle blood`
     }
   })
@@ -516,4 +550,39 @@ function modalOpen(modal, student) {
   };
 }
 //TODO: can change the filter buttons to have all the houses when the buttons are clicked they would work.
+
+function hackTheSystem() {
+  systemHacked = true
+
+  //injecting myself in the student list
+  const injectMyself = Object.create(Student);
+  injectMyself.firstName = 'Klajdi';
+  injectMyself.middleName = 'None';
+  injectMyself.lastName = 'Ajdini';
+  injectMyself.name = `${injectMyself.firstName} ${injectMyself.lastName}`;
+  injectMyself.house = 'Slytherin';
+  injectMyself.gender = 'Boy';
+  injectMyself.image = `./harryp/Klajdi.jpg`;
+  injectMyself.hacker = true;
+
+  if (systemHacked) {
+    // const skull = document.querySelector('.systemHacked');
+    // skull.style.display = 'block';
+    // document.querySelector('.play').play();
+    document.querySelector('.hacked').removeEventListener('click', hackTheSystem);
+    const body = document.querySelector('body');
+    body.setAttribute('style', 'background: black; font-family: hacked');
+    document.querySelector('.houseCrest').classList.add('spin');
+    document.querySelector('.soundImg img').style.background = 'white';
+    document.querySelector('.hacked .inquisText').textContent = 'System already hacked!'
+    // setTimeout(() => {
+    //   skull.style.display = 'none';
+    // }, 5100);
+
+  }
+  
+  allStudents.unshift(injectMyself);
+  numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
+  displayList(filteredStudents)
+}
 
