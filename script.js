@@ -1,3 +1,4 @@
+// Attention In order to activate hacking mode press on the first big red H on the landing screen or go to the console and type hackTheSystem()
 "use strict";
 
 window.addEventListener("DOMContentLoaded", deligator);
