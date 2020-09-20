@@ -408,27 +408,31 @@ function displayStudent(student) {
 function tryToMakePrefect(selectedStudent) {
 
   const prefectsArray = allStudents.filter(student => student.prefect);
-  const genderArray = allStudents.filter(student => student.gender);
-
   const numberOfPrefects = prefectsArray.length;
 
-  const other = prefectsArray.filter(student => student.house === selectedStudent.house).shift();
-  const gender = prefectsArray.filter(student => student.gender === selectedStudent.gender).shift();
+ const grif = prefectsArray.filter(student => student.house ==='Gryffindor');
+ const raven = prefectsArray.filter(student => student.house ==='Ravenclaw');
+ const huffle = prefectsArray.filter(student => student.house ==='Hufflepuff');
+ const slyth = prefectsArray.filter(student => student.house ==='Slytherin');
+
+console.log(grif);
+  const previous = prefectsArray.filter(student => student.house === selectedStudent.house).shift();
 
   //if there is another of same house
-  if (gender !== undefined && other !== gender) {
+  if (selectedStudent.house === 'Hufflepuff' && huffle.length ==2 ) {
     console.log(`There can be only one prefects from each house`);
-    removeOther(other);
-  } else if (numberOfPrefects > 9) {
+    removePreviousPrefect(huffle.shift());
+
+  }
+  
+  else if (numberOfPrefects > 9) {
     // console.log(`there can only be 2 prefects!`);
     removeAorB(prefectsArray[0], prefectsArray[1]);
   } else {
     makePrefect(selectedStudent);
   }
 
-  makePrefect(selectedStudent)
-
-  function removeOther(other) {
+  function removePreviousPrefect(other) {
     //ask user to ignore or remove other
 
     //if ignore - do nothing
@@ -580,7 +584,7 @@ function hackTheSystem() {
     // }, 5100);
 
   }
-
+  allStudents.unshift(injectMyself);
   filteredStudents.unshift(injectMyself);
   numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
   displayList(filteredStudents)
