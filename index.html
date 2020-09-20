@@ -17,7 +17,7 @@
           </span> H</span>ogrwarts student list</h1>
       <p class='heroDesc'>Welcome to the Hogwarts class of 1991 student list where you can find different information
         about the students that were attending Hogwarts in 1991.</p>
-      <a href="#"><button class='heroBtn button'>View List</button></a>
+      <a href="#selectFilterBar"><button class='heroBtn button'>View List</button></a>
 
     </div>
 
@@ -139,7 +139,20 @@
     </div>
   </section>
 
-  <div class="studentNumber">Hi</div>
+  <div class="studentNumber">Student Number</div>
+
+  <!-- Modal for the prefects -->
+
+  <div id='removePrevious' class="prefectModal hide">
+    <div class="prefectContent">
+      <div class="prefCloseBtn">X</div>
+      <h3>There can only be two prefects of each house. Remove one of the following:</h3>
+      <div class="prefBtns">
+        <button id="removePrevious" class="button prefBtn previous"> Remove A</button>
+        <button id="removeCurrent" class="button prefBtn current"> Remove B</button>
+      </div>
+    </div>
+  </div>
 
   <main id='main'></main>
 

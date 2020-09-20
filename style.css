@@ -493,6 +493,55 @@ button {
 
 }
 
+/* prefect modal */
+.prefectModal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+.prefectContent {
+  width: 55%;
+  height: 55%;
+  padding: 1.5em;
+  margin: 5em auto;
+  background: var(--background-color);
+  color: var(--heading-color);
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 20px;
+  box-shadow: 10px 10px 20px rgb(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.prefCloseBtn {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  cursor: pointer;
+  font-size: 1.3em;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+.prefBtn {
+  padding: 10px 20px;
+  background-color: var(--expelled-color);
+}
+
+
+
 /* footer */
 footer {
   display: flex;
@@ -530,7 +579,7 @@ footer {
 
 
   .houseCrest {
-    max-height: 100%;
+    max-height: 55%;
     animation: rota 5s;
     align-self: center;
   }
@@ -571,6 +620,7 @@ footer {
   .filterSection .search {
     width: 30%;
   }
+
   /* modal */
   .modal-content {
     flex-direction: column;
@@ -587,7 +637,7 @@ footer {
 
 
 
-@media only screen and (max-width: 760px) {
+@media only screen and (max-width: 750px) {
 
   /* hero section */
   .hero {
@@ -595,9 +645,7 @@ footer {
   }
 
   .houseCrest {
-    margin: -1.5em;
-    max-width: 10%;
-
+    display: none;
   }
 
   /* filter section */
@@ -658,7 +706,7 @@ footer {
 
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
 
   /* hero section */
   .arrowDown {
