@@ -42,7 +42,7 @@ const Student = {
   },
   toggleSquad() {
     //change squad status based on what previous status is
-    if (this.squad === false) {
+    if (this.house === 'Slytherin' && this.squad === false) {
       this.squad = true;
     } else {
       this.squad = false;
@@ -125,7 +125,7 @@ function getStudent(selectedValue) {
   }
   else {
     // show only students based on their house and the ones who are not expelled
-    filteredStudents = allStudents.filter(student => student.house === selectedValue && student.expelled === false && student.squad === false);
+    filteredStudents = allStudents.filter(student => student.house === selectedValue && student.expelled === false);
   }
   // update the numbers before displaying.
   numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
@@ -325,7 +325,7 @@ function displayStudent(student) {
   //if hacker then cant expell
   if (student.hacker) {
     expeledInfo.textContent = 'Expel me if you can';
-    clone.querySelector('[data-field=expell]').textContent = 'Can\'t do it can you?';
+    clone.querySelector('[data-field=expell]').textContent = 'Can\'t do it, can you?';
     clone.querySelector('[data-field=expell]').disabled = true;
   }
   //get the expell button
@@ -342,7 +342,7 @@ function displayStudent(student) {
 
   clone.querySelector('[data-field=inquisBtn]').addEventListener('click', clickSquad);
   //inquisitorial squad
-  if (student.squad === true) {
+  if (student.house === 'Slytherin' && student.squad === true) {
     clone.querySelector('[data-field=inquisBtn]').style.opacity = 1;
     card.style.background = 'black';
   }
