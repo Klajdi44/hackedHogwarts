@@ -447,6 +447,9 @@ function tryToMakePrefect(selectedStudent) {
     document.querySelector('.previous').addEventListener('click', removePrevious);
     document.querySelector('.current').addEventListener('click', removeCurrent);
 
+    document.querySelector('.previous').textContent = `Remove ${prefectA.firstName}`;
+    document.querySelector('.current').textContent = `Remove ${prefectB.firstName}`;
+
 
     function closePrefContent() {
       document.querySelector('#removePrevious').classList.add('hide');
