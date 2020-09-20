@@ -3,11 +3,11 @@
 //// 3) make an expell button,
 //// 4) make a place where to display the number of students that are currently displayed. 
 ////5) make the images appear.
-// 6) make prefects work as it should.
-// 7) hack the system
+//// 6) make prefects work as it should.
+//// 7) hack the system
 ////8) implement search bar
 //9) sort by gender 
-// 10) filter by prefects
+//// 10) filter by prefects
 
 
 
@@ -145,6 +145,8 @@ function getStudent(selectedValue) {
   } else if (selectedValue === 'Inquisitorial') {
     filteredStudents = allStudents.filter(students => students.squad === true);
     numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
+  } else if (selectedValue === 'prefects') {
+    filteredStudents = allStudents.filter(student => student.prefect === true);
   }
   else {
     // show only students based on their house and the ones who are not expelled
@@ -347,8 +349,8 @@ function displayStudent(student) {
   }
   //if hacker
   if (student.hacker) {
-    expeledInfo.textContent = '';
-    clone.querySelector('[data-field=expell]').textContent = 'Expel me if you can';
+    expeledInfo.textContent = 'Expel me if you can';
+    clone.querySelector('[data-field=expell]').textContent = 'Can\'t do it can you?';
     clone.querySelector('[data-field=expell]').disabled = true;
   }
 
@@ -368,7 +370,6 @@ function displayStudent(student) {
     clone.querySelector('[data-field=inquisBtn]').style.opacity = 1;
     card.style.background = 'black';
   }
-
   function clickSquad() {
     student.toggleSquad();
   }
@@ -378,6 +379,11 @@ function displayStudent(student) {
   if (student.prefect === true) {
     clone.querySelector('[data-field=prefectBtn]').style.opacity = 1;
     card.style.background = '#ff8000'
+  }
+
+  if (student.squad === true && student.prefect === true) {
+    console.log('hello');
+    card.setAttribute('style', 'background: linear-gradient(50deg,#ff8000,#513E3E);')
   }
 
   function clickPrefect() {
@@ -447,8 +453,8 @@ function tryToMakePrefect(selectedStudent) {
     document.querySelector('.previous').addEventListener('click', removePrevious);
     document.querySelector('.current').addEventListener('click', removeCurrent);
 
-    document.querySelector('.previous').textContent = `Remove ${prefectA.firstName}`;
-    document.querySelector('.current').textContent = `Remove ${prefectB.firstName}`;
+    document.querySelector('.previous').textContent = `Remove ${prefectA.name}`;
+    document.querySelector('.current').textContent = `Remove ${prefectB.name}`;
 
 
     function closePrefContent() {
@@ -590,22 +596,21 @@ function hackTheSystem() {
   injectMyself.hacker = true;
 
   if (systemHacked) {
-    // const skull = document.querySelector('.systemHacked');
-    // skull.style.display = 'block';
-    // document.querySelector('.play').play();
+    const skull = document.querySelector('.systemHacked');
+    skull.style.display = 'block';
+    document.querySelector('.play').play();
     document.querySelector('.hacked').removeEventListener('click', hackTheSystem);
     const body = document.querySelector('body');
     body.setAttribute('style', 'background: black; font-family: hacked');
     document.querySelector('.houseCrest').classList.add('spin');
     document.querySelector('.soundImg img').style.background = 'white';
     document.querySelector('.hacked .inquisText').textContent = 'System already hacked!'
-    // setTimeout(() => {
-    //   skull.style.display = 'none';
-    // }, 5100);
+    setTimeout(() => {
+      skull.style.display = 'none';
+    }, 5100);
 
   }
   allStudents.unshift(injectMyself);
-  filteredStudents.unshift(injectMyself);
   numberOfStudents.textContent = `Students: ${filteredStudents.length}`;
   displayList(filteredStudents)
 }

@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="./harryp/harry.png"/>
+
   <title>Hacked Hogwarts || Klajdi Ajdini</title>
 </head>
 
@@ -63,6 +65,8 @@
         </option>
         <option class="selection" value="Inquisitorial">Inquisitorial Squad
         </option>
+        <option class="selection" value="prefects">Prefects
+        </option>
       </select>
     </div>
 
@@ -79,6 +83,12 @@
         <option value="lastName" data-sort-direction="asc">Last Name
         </option>
         <option value="house" data-sort-direction="asc">House
+        </option>
+        <option value="gender" data-sort-direction="asc">Gender
+        </option>
+        <option value="prefect" data-sort-direction="asc">Prefects
+        </option>
+        <option value="squad" data-sort-direction="asc">Inquisitorail squad
         </option>
       </select>
       <button class="button sortBtn" data-field='sortbtn'>Sort</button>
@@ -146,7 +156,7 @@
   <div id='removePrevious' class="prefectModal hide">
     <div class="prefectContent">
       <div class="prefCloseBtn">X</div>
-      <h3>There can only be two prefects of each house. Remove one of the following:</h3>
+      <h3 class="prefTextH3">There can only be two prefects of each house. Remove one of the following:</h3>
       <div class="prefBtns">
         <button id="removePrevious" class="button prefBtn previous"> Remove A</button>
         <button id="removeCurrent" class="button prefBtn current"> Remove B</button>

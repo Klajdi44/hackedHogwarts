@@ -116,6 +116,9 @@ body {
   background: var(--expelled-color);
 
 }
+.button.button.expell:hover{
+  background:rgb(255, 0, 0);
+}
 
 
 .hero .arrowDown {
@@ -244,6 +247,10 @@ button {
 .cardBtn {
   background-color: var(--background-color);
   padding: 8px 20px;
+}
+
+.cardBtn:hover{
+  background-color:  #5146b4;;
 }
 
 #main {
@@ -535,9 +542,16 @@ button {
   visibility: hidden;
 }
 
+.prefectContent .prefTextH3{
+  font-size: 1.3em;
+}
+
 .prefBtn {
   padding: 10px 20px;
   background-color: var(--expelled-color);
+}
+.prefBtn:hover{
+background: red;
 }
 
 
