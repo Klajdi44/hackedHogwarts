@@ -410,21 +410,28 @@ function tryToMakePrefect(selectedStudent) {
   const prefectsArray = allStudents.filter(student => student.prefect);
   const numberOfPrefects = prefectsArray.length;
 
- const grif = prefectsArray.filter(student => student.house ==='Gryffindor');
- const raven = prefectsArray.filter(student => student.house ==='Ravenclaw');
- const huffle = prefectsArray.filter(student => student.house ==='Hufflepuff');
- const slyth = prefectsArray.filter(student => student.house ==='Slytherin');
+  const grif = prefectsArray.filter(student => student.house === 'Gryffindor');
+  const raven = prefectsArray.filter(student => student.house === 'Ravenclaw');
+  const huffle = prefectsArray.filter(student => student.house === 'Hufflepuff');
+  const slyth = prefectsArray.filter(student => student.house === 'Slytherin');
 
-console.log(grif);
+  console.log(grif);
   const previous = prefectsArray.filter(student => student.house === selectedStudent.house).shift();
 
   //if there is another of same house
-  if (selectedStudent.house === 'Hufflepuff' && huffle.length ==2 ) {
+  if (selectedStudent.house === 'Hufflepuff' && huffle.length == 2) {
     console.log(`There can be only one prefects from each house`);
-    removePreviousPrefect(huffle.shift());
-
+    removeAorB(huffle.shift(), huffle.pop());
   }
-  
+  else if (selectedStudent.house === 'Gryffindor' && grif.length == 2) {
+    removeAorB(grif.shift(), grif.pop());
+  }
+  else if (selectedStudent.house === 'Ravenclaw' && raven.length == 2) {
+    removeAorB(raven.shift(), raven.pop());
+  }
+  else if (selectedStudent.house === 'Slytherin' && slyth.length == 2) {
+    removeAorB(slyth.shift(), slyth.pop());
+  }
   else if (numberOfPrefects > 9) {
     // console.log(`there can only be 2 prefects!`);
     removeAorB(prefectsArray[0], prefectsArray[1]);
@@ -432,26 +439,36 @@ console.log(grif);
     makePrefect(selectedStudent);
   }
 
-  function removePreviousPrefect(other) {
-    //ask user to ignore or remove other
-
-    //if ignore - do nothing
-    //if remove-other
-    removePrefect(other);
-    makePrefect(selectedStudent);
-  }
 
   function removeAorB(prefectA, prefectB) {
     //ask user to ignore or remove A or B
-    // if ignore do nothing
-    //if removeA:
-    removePrefect(prefectA);
-    makePrefect(selectedStudent);
+    document.querySelector('#removePrevious').classList.remove('hide');
+    document.querySelector('.prefCloseBtn').addEventListener('click', closePrefContent);
+    document.querySelector('.previous').addEventListener('click', removePrevious);
+    document.querySelector('.current').addEventListener('click', removeCurrent);
 
-    //else - if removeB
-    removePrefect(prefectB);
-    makePrefect(selectedStudent);
 
+    function closePrefContent() {
+      document.querySelector('#removePrevious').classList.add('hide');
+      document.querySelector('.prefCloseBtn').removeEventListener('click', closePrefContent);
+      document.querySelector('.previous').removeEventListener('click', removePrevious);
+      document.querySelector('.current').removeEventListener('click', removeCurrent);
+    }
+
+    function removePrevious() {
+      //if removeA:
+      removePrefect(prefectA);
+      makePrefect(selectedStudent);
+      displayList(filteredStudents);
+      closePrefContent();
+    }
+
+    function removeCurrent() {
+      removePrefect(prefectB);
+      makePrefect(selectedStudent);
+      displayList(filteredStudents);
+      closePrefContent();
+    }
   }
 
   function removePrefect(currentPrefect) {
