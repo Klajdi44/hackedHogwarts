@@ -151,10 +151,10 @@ function animalSounds(selected) {
   }
 }
 //play harry potter theme
-function playTheme() {
-  const theme = new Audio('./harryp/harry_potter_loop.mp3');
-  theme.play()
-}
+// function playTheme() {
+//   const theme = new Audio('./harryp/harry_potter_loop.mp3');
+//   theme.play()
+// }
 
 function getSortedStudent(pressedValue, sortDirection) {
   let sortedStudents = [];
