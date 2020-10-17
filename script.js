@@ -72,7 +72,7 @@ function deligator() {
   loadJSON("https://petlatkea.dk/2020/hogwarts/students.json");
   document.querySelector('#selectFilterBar').addEventListener('change', getFilterBarValue);
   document.querySelector('#sortSelect').addEventListener('input', getSortedValues);
-  document.querySelector('.soundImg').addEventListener('click', playTheme);
+  // document.querySelector('.soundImg').addEventListener('click', playTheme);
   document.querySelector('.search').addEventListener('input', searchStudent);
   document.querySelector('.hacked').addEventListener('click', hackTheSystem);
 }
@@ -604,7 +604,7 @@ function hackTheSystem() {
     const body = document.querySelector('body');
     body.setAttribute('style', 'background: black; font-family: hacked');
     document.querySelector('.houseCrest').classList.add('spin');
-    document.querySelector('.soundImg img').style.background = 'white';
+    // document.querySelector('.soundImg img').style.background = 'white';
     document.querySelector('.hacked .inquisText').textContent = 'System already hacked!';
     //remove the skull after 5s
     setTimeout(() => {
